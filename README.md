@@ -2,8 +2,10 @@ Laravel Validation Models
 =====================
 Helps you easily validate your models and eloquent models with specific scenarios and use them in api
 
-Installation
-------------
+[![Latest Stable Version](https://img.shields.io/packagist/v/mamadali/laravel-validation-models.svg)](https://packagist.org/packages/mamadali/laravel-validation-models)
+[![Total Downloads](https://img.shields.io/packagist/dt/mamadali/laravel-validation-models.svg)](https://packagist.org/packages/mamadali/laravel-validation-models)
+
+# Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
