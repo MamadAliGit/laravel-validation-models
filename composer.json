@@ -1,0 +1,19 @@
+{
+    "name": "mamadali/laravel-validation-models",
+    "description": "Helps you easily validate your models and eloquent models with specific scenarios and use them in api",
+    "autoload": {
+        "psr-4": {
+            "Mamadali\\LaravelValidationModels\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "mamadali",
+            "email": "mhmd.ali.shabani@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.0",
+        "laravel/framework": ">=8.0"
+    }
+}
