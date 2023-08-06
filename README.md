@@ -29,6 +29,7 @@ to the "require" section of your `composer.json` file.
     - [Scenarios](#scenarios)
     - [Api Response](#api-response)
     - [Get fields in api](#get-fields-in-api)
+    - [Events](#events)
 ---
 
 # Basic Usage
@@ -78,6 +79,19 @@ Route::post('/test', function (Request $request) {
 
     // you can get first error as string with $model->getFirstError()
     $firstErrorMessage = $model->getFirstError();
+```
+in eloquent models you can just call $model->save()
+```php
+Route::post('/create-user', function (Request $request) {
+    // you can pass data from Request or array from user data to newModel function 
+    $model = User::newModel($request);
+
+    $model->save();
+```
+in save function call validate function by default \
+if you need not call validate function
+```php
+    $model->save(['validate' => false]);
 ```
 # Advanced Usage
 
@@ -129,7 +143,19 @@ and you can pass scenario when create your model
     $model = Form::newModel($request, 'scenario1');
     $models = Form::newMultipleModel($request, 'scenario2');
 ```
-when set attributes in your model only attributes in scenario set to your model
+
+also you can set scenario on your model manually
+```php
+    $model = new Form();
+    $model->setScenario('scenario1');
+    $model->loadModel($request);
+```
+when load attributes in your model only attributes in scenario set to your model
+
+and you can get scenario currently your model on this
+```php
+    $model->getScenario();
+```
 
 ----
 you can handle your validation rules with scenarios like this
@@ -207,3 +233,44 @@ and you can get specific fields in your response by add 'fields' parameter in qu
 
 ```http://127.0.0.1/api/test?fields=id,title&expand=extraField1``` \
 in this request only get id,title and extraField1
+
+----
+
+## Events
+beforeValidate method is invoked before validation starts. \
+You may override this method in your model \
+If `false` is returned, the validation will stop and the model is considered invalid.
+```php
+    public function beforeValidate() : bool
+    {
+        ... your code here ...
+        return true;
+    }
+```
+
+afterValidate method is invoked after validation ends. \
+You may override this method in your model
+```php
+    public function afterValidate(): void
+    {
+        .... your code here ....
+    }
+```
+beforeSave method is called at the beginning of inserting or updating a record in eloquent models.
+Override this method in your eloquent model \
+If `false`, the insertion or updating will be cancelled.
+```php
+    public function beforeSave(array $options = []): bool
+    {
+        ... your code here ...
+        return true;
+    }
+```
+This method is called at the end of inserting or updating a record in eloquent models. \
+Override this method in your eloquent model:
+```php
+    public function afterSave(array $options = []): void
+    {
+        ... your code here ...
+    }
+```
